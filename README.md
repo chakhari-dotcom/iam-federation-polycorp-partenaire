@@ -28,9 +28,8 @@ iam-federation-polycorp-partenaire/
     ├── Dockerfile                  # Conteneurisation de l'application Flask
     ├── requirements.txt            # Dépendances Python (flask, requests, pyjwt, cryptography)
     └── app.py                      # Client OIDC & API REST (Contrôle d'accès RBAC)
-
 🛠️ Démarrage et DéploiementLancer l'infrastructure (Docker Compose) :Bashdocker-compose up -d
 Lancer l'application Flask :Bashcd app-partenaire
 pip install -r requirements.txt
 python3 app.py
-Tester les accès :Accéder à http://app.partenaire.test:5000Se connecter via le compte d'Alice (membre de partenaire-access) $\rightarrow$ Accès autorisé (200 OK).Se connecter via le compte de Bob (sans le groupe requis) $\rightarrow$ Accès refusé (403 Forbidden).🔒 Sécurité & GouvernanceMinimisation des données (RGPD) : Seuls les attributs strictement nécessaires (email, groups) sont transmis dans les assertions SAML et les jetons JWT.Séparation des rôles : Traduction du groupe LDAP partenaire-access en rôle local api_partenaire_user via les mappers Keycloak.
+Tester les accès :Accéder à [http://app.partenaire.test:5000](http://app.partenaire.test:5000)Se connecter via le compte d'Alice (membre de partenaire-access) $\rightarrow$ Accès autorisé (200 OK).Se connecter via le compte de Bob (sans le groupe requis) $\rightarrow$ Accès refusé (403 Forbidden).🔒 Sécurité & GouvernanceMinimisation des données (RGPD) : Seuls les attributs strictement nécessaires (email, groups) sont transmis dans les assertions SAML et les jetons JWT.Séparation des rôles : Traduction du groupe LDAP partenaire-access en rôle local api_partenaire_user via les mappers Keycloak.
