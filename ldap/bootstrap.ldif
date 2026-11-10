@@ -1,0 +1,38 @@
+dn: ou=users,dc=polycorp,dc=test
+objectClass: organizationalUnit
+ou: users
+
+dn: ou=groups,dc=polycorp,dc=test
+objectClass: organizationalUnit
+ou: groups
+
+dn: uid=alice,ou=users,dc=polycorp,dc=test
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: Alice Martin
+sn: Martin
+givenName: Alice
+uid: alice
+mail: alice@polycorp.test
+uidNumber: 10001
+gidNumber: 10001
+homeDirectory: /home/alice
+userPassword: password123
+
+dn: uid=bob,ou=users,dc=polycorp,dc=test
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: Bob Dupont
+sn: Dupont
+givenName: Bob
+uid: bob
+mail: bob@polycorp.test
+uidNumber: 10002
+gidNumber: 10002
+homeDirectory: /home/bob
+userPassword: password123
+
+dn: cn=partenaire-access,ou=groups,dc=polycorp,dc=test
+objectClass: groupOfNames
+cn: partenaire-access
+member: uid=alice,ou=users,dc=polycorp,dc=test

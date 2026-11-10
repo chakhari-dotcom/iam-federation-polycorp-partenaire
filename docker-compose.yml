@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  openldap:
+    image: osixia/openldap:1.5.0
+    container_name: openldap-polycorp
+    environment:
+      LDAP_ORGANISATION: "Polycorp"
+      LDAP_DOMAIN: "polycorp.test"
+      LDAP_ADMIN_PASSWORD: "adminpassword"
+    ports:
+      - "389:389"
+    volumes:
+      - ./ldap/bootstrap.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/bootstrap.ldif
+    command: --copy-service
+
+  keycloak-a:
+    image: quay.io/keycloak/keycloak:24.0
+    container_name: keycloak-polycorp
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: idp.polycorp.test
+      KC_HOSTNAME_PORT: 8081
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "false"
+    ports:
+      - "8081:8080"
+    command: start-dev
+
+  keycloak-b:
+    image: quay.io/keycloak/keycloak:24.0
+    container_name: keycloak-partenaire
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: broker.partenaire.test
+      KC_HOSTNAME_PORT: 8082
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "false"
+    ports:
+      - "8082:8080"
+    command: start-dev
